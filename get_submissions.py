@@ -38,13 +38,19 @@ def download_handler(browser, download_dir):
     params = {'cmd':'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': download_dir}}
     browser.execute("send_command", params)
 
-
+# set up path local to project
 HERE = Path(__file__).parent
 DATA_FOLDER = HERE / 'data'
+try: # create path
+    Path.mkdir(DATA_FOLDER)
+except FileExistsError:
+    pass
 
-load_dotenv('.env')
-USER = os.getenv('USER')
-PASS = os.getenv('PASS')
+# load usrname and pw from local envirnment
+env_path = Path('.') / '.env'
+load_dotenv(dotenv_path=env_path)
+USER = os.getenv("USER")
+PASS = os.getenv("PASS")
 
 ### BOILERPLATE settings browser ###
 chrome_options = Options()
@@ -71,11 +77,9 @@ dl_path = str(DATA_FOLDER)
 
 # run the program
 if __name__=="__main__":
-    try:
-        site_login(browser, login_url)
-        submissions_download(browser, submissions_url)
-        download_handler(browser, dl_path)
-        time.sleep(100) # long enough to export all submissions
-        browser.quit()
-    except Exception as exc:
-        print(f"There was an error: {exc}")
+
+    site_login(browser, login_url)
+    submissions_download(browser, submissions_url)
+    download_handler(browser, dl_path)
+    time.sleep(100) # long enough to export all submissions
+    browser.quit()
