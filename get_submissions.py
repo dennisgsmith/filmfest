@@ -38,6 +38,7 @@ def download_handler(browser, download_dir):
     params = {'cmd':'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': download_dir}}
     browser.execute("send_command", params)
 
+
 # set up path local to project
 HERE = Path(__file__).parent
 DATA_FOLDER = HERE / 'data'
