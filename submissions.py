@@ -1,4 +1,7 @@
+# Python 3.9.0
 # submissions.py
+__version__ = '0.2.0'
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
@@ -21,13 +24,14 @@ login_url = "https://filmfreeway.com/login"
 submissions_url = "https://filmfreeway.com/submissions"
 dl_path = str(DATA_FOLDER)
 
+
 def setup_chrome():
     '''
     configure boilerplate settings for Options()
     return amended Options() object
     '''
     chrome_options = Options()
-    # chrome_options.add_argument("--headless") # comment out this line if you want to see the action
+    chrome_options.add_argument("--headless") # comment out this line to see the action
     chrome_options.add_argument("--window-size=1920x1080")
     chrome_options.add_argument("--disable-notifications")
     chrome_options.add_argument('--no-sandbox')
