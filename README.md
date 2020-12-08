@@ -33,4 +33,8 @@ Run process.py
 
 ## TODO
 
-Create some better looking summary statistics and data viz that can be reused with little modification
+-Create a log of each year's data and log old summary submission csv's for analysis
+-Create a login check so you will not have to manually delete .env file
+-Create some better looking summary statistics and data viz that can be reused with little modification
+
+-Extend functionality: Automate grabbing movie from each submission (after the Submission status is labelled as accepted in the retrieved submissions df)
