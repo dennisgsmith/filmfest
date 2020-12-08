@@ -11,10 +11,10 @@ If settings.py does not find a local .env folder, it will create one and ask to 
 If you enter them wrong, delete the local .env folder and try again
 
 submissions.py triggers selenium to: 
--open a headless chrome window
--log in (using the credentials in your local environment)
--navigate to the submissions tab
--export a custom congigured csv file ("Basic Summary" configuration)
+1. open a headless chrome window
+2. log in (using the credentials in your local environment)
+3. navigate to the submissions tab
+4. export a custom congigured csv file ("Basic Summary" configuration)
 
 In a perfact world, I would be using requests over selenium, but...
 *I chose selenium after hitting a wall with requests, do to all of the embedded javascript on the site*
@@ -28,13 +28,13 @@ process.py will only work with my 2020 "Basic Summary" submissions export config
 It's just cleaning up some data and generating a couple (not so impressive) visualizations
 
 Run process.py
--generate EntriesPerCat_BAR.png
--generate EntriesPerCat_PIE.png
+- generate EntriesPerCat_BAR.png
+- generate EntriesPerCat_PIE.png
 
 ## TODO
 
--Create a log of each year's data and log old summary submission csv's for analysis
--Create a login check so you will not have to manually delete .env file
--Create some better looking summary statistics and data viz that can be reused with little modification
+- Create a log of each year's data and log old summary submission csv's for analysis
+- Create a login check so you will not have to manually delete .env file
+- Create some better looking summary statistics and data viz that can be reused with little modification
 
--Extend functionality: Automate grabbing movie from each submission (after the Submission status is labelled as accepted in the retrieved submissions df)
+- Extend functionality: Automate grabbing movie from each submission (after the Submission status is labelled as accepted in the retrieved submissions df)
