@@ -21,16 +21,13 @@ duplicate_entries = subs_df[subs_df['Project Title'].duplicated()==True]
 subs_df['Submission Categories'] = subs_df['Submission Categories'].apply( \
         lambda x: x.replace('Short films that make you feel good.', 'Feel Good Shorts'))
 
-# Correct 'Youth Short Films, Short Documentary' column
-print(subs_df.info())
-# Force to 'Short Documentary' for now
+# 'Youth Short Films, Short Documentary' force to 'Short Documentary'
 subs_df['Submission Categories'] = subs_df['Submission Categories'].apply( \
         lambda x: x.replace('Youth Short Films, Short Documentary', 'Short Documentary'))
 
 subs_per_cat = dict(Counter(subs_df['Submission Categories']))
 sorted_sub_cat = sorted(subs_per_cat.items(), key=lambda x: x[1])
 total_subs = len(subs_df['Project Title'])
-
 
 # PLOTTING
 labels = [k for k, v in sorted_sub_cat]

@@ -1,6 +1,6 @@
 # Python 3.9.0
 # submissions.py
-__version__ = '0.2.0'
+__version__ = '0.2.1'
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -82,19 +82,15 @@ def download_handler(browser, download_dir):
 
 def main():
     # ask for user keys and create local env if needed
-    try:
-        USER, PASS = get_user_creds()
-        # make sure chromedriver is in system PATH or specify "executable_path" kwarg
-        chrome_options = setup_chrome()
-        browser = webdriver.Chrome(options=chrome_options) # initiate driver
-        site_login(browser, login_url, USER, PASS)
-        submissions_download(browser, submissions_url)
-        download_handler(browser, dl_path)
-        time.sleep(100) # long enough to export all submissions
-        browser.quit()
-    except Exception as exc:
-        print(f"An error accured: {exc}")
-        os.close()
+    USER, PASS = get_user_creds()
+    # make sure chromedriver is in system PATH or specify "executable_path" kwarg
+    chrome_options = setup_chrome()
+    browser = webdriver.Chrome(options=chrome_options) # initiate driver
+    site_login(browser, login_url, USER, PASS)
+    submissions_download(browser, submissions_url)
+    download_handler(browser, dl_path)
+    time.sleep(100) # long enough to export all submissions
+    browser.quit()
 
 
 # run the program

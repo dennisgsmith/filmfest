@@ -10,6 +10,8 @@ Run submissions.py
 If settings.py does not find a local .env folder, it will create one and ask to store your keys (username and password) here. 
 If you enter them wrong, delete the local .env folder and try again
 
+## submissions.py
+
 submissions.py triggers selenium to: 
 1. open a headless chrome window
 2. log in (using the credentials in your local environment)
@@ -22,10 +24,10 @@ In a perfact world, I would be using requests over selenium, but...
 It looked like I could plausibly use requests with jQuery to successfully automate this download (I looked into that beifly)
 ...but due to time constaints and my familiarity with Python I chose selenium.
 
-## getting viz
+## process.py
 
 process.py will only work with my 2020 "Basic Summary" submissions export configuration
-It's just cleaning up some data and generating a couple (not so impressive) visualizations
+It's just cleaning up some data and generating a couple very basic visualizations
 
 Run process.py
 - generate EntriesPerCat_BAR.png
