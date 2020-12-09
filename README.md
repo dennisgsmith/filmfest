@@ -33,6 +33,10 @@ Run process.py
 - generate EntriesPerCat_BAR.png
 - generate EntriesPerCat_PIE.png
 
+## settings.py
+
+settings.py contains a function that creates a local .env to store user credentials in environment variables in order to login to filmfreeway securely. It will ask for the username and password in the terminal. *if the password is incorrectly entered, you have to delete the .env file and restart the submissions script.* python-dotenv *is used to load the credentials into submissions.py. This script is not indended to run directly in the terminal.*
+
 ## TODO
 
 - Create a log of each year's data and log old summary submission csv's for analysis
