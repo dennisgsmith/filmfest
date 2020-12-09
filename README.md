@@ -1,14 +1,8 @@
 # filmfest
 
 This project automates downloading a submissions folder from www.filmfreeway.com for a local film fest using selenium with chromedriver.
-The csv that selenium points to is a custom export config created in the website's settings, named "Basic Summary"
-
-## logging in
-
-Run submissions.py
-
-If settings.py does not find a local .env folder, it will create one and ask to store your keys (username and password) here. 
-If you enter them wrong, delete the local .env folder and try again
+The csv that selenium points to is a custom export config created in the website's settings, named "Basic Summary".
+There is also an included script that creates some very basic data visualizations from the data pulled.
 
 ## submissions.py
 
@@ -35,7 +29,11 @@ Run process.py
 
 ## settings.py
 
-settings.py contains a function that creates a local .env to store user credentials in environment variables in order to login to filmfreeway securely. It will ask for the username and password in the terminal. *if the password is incorrectly entered, you have to delete the .env file and restart the submissions script.* python-dotenv *is used to load the credentials into submissions.py. This script is not indended to run directly in the terminal.*
+settings.py contains a function that creates a local .env to store user credentials in environment variables in order to login to filmfreeway securely.
+- It will ask for the username and password in the terminal.
+- *if the password is incorrectly entered, you have to delete the .env file and restart the submissions script.*
+- python-dotenv is used to load the credentials into submissions.py
+- *This script is not indended to run directly in the terminal.*
 
 ## TODO
 
