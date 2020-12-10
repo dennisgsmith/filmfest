@@ -12,7 +12,7 @@ submissions.py triggers selenium to:
 3. navigate to the submissions tab
 4. export a custom congigured csv file ("Basic Summary" configuration)
 
-I would be using requests over selenium, but I chose selenium after hitting a wall with requests, do to all of the embedded javascript on the site.
+I would be using requests over selenium, but I chose selenium after hitting a wall with requests, due to all of the embedded javascript on the site.
 
 It looked like I could use requests with jQuery to successfully automate this download but due to time constaints and my familiarity with Python I chose selenium.
 
