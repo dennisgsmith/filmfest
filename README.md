@@ -1,6 +1,6 @@
 # filmfest
 
-This project automates downloading a submissions folder from www.filmfreeway.com for a local film fest using selenium with chromedriver.
+This project automates downloading a submissions folder from *a website* for a local film fest using selenium with chromedriver.
 The csv that selenium points to is a custom export config created in the website's settings, named "Basic Summary".
 There is also an included script that creates some very basic data visualizations from the data pulled.
 
