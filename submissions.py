@@ -68,7 +68,8 @@ def submissions_download(browser, submissions_url):
     WebDriverWait(browser, 1) # wait 1 second for javascript motion-window
     browser.find_element_by_id('export_configuration').click() # export config dropdown
     browser.find_element_by_xpath('//*[@id="export_configuration"]/option[2]').click() # select "Basic Summary"
-    browser.find_element_by_xpath('/html/body/div[8]/div[2]/div/form/div[3]/button').click() # click export button
+    # browser.find_element_by_xpath('/html/body/div[9]/div[2]/div/form/div[2]/div/div[3]/label[3]').click() # uncomment if Excel input
+    browser.find_element_by_xpath('/html/body/div[9]/div[2]/div/form/div[3]/button').click() # click export button
 
 
 def download_handler(browser, download_dir):

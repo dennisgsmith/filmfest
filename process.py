@@ -10,16 +10,12 @@ HERE = Path(__file__).parent
 DATA_FOLDER = HERE / "data"
 
 # read in csv to pd.DataFrame
-raw = pd.read_csv(DATA_FOLDER / "filmfreeway-submissions.csv")
-subs_df = raw.copy() # shallow copy
-
+subs_df = pd.read_csv(DATA_FOLDER / "filmfreeway-submissions.csv")
+desc_df = pd.read_csv(DATA_FOLDER / "descriptions.csv")
 ### CLEAN ###
 
 # Drop withdrawn entries
 subs_df = subs_df[subs_df['Submission Status'] != 'Withdrawn']
-
-# There are no duplicate entries
-# duplicate_entries = subs_df[subs_df['Project Title'].duplicated()==True]
 
 # Replace column to shorten: Feel Good Shorts
 subs_df['Submission Categories'] = subs_df['Submission Categories'].apply(
@@ -49,53 +45,43 @@ subs_df['State'] = subs_df['State'].apply(
                .replace('ny', 'NY')
 )
 
-### EDA ###
+# SUBSET SELECTED FILMS
+selected_df = subs_df[subs_df['Judging Status']=='Selected']
 
-# Convert Duration column to timedelta datatype
-subs_df['Duration'] = pd.to_timedelta(subs_df['Duration'])
+pd.to_timedelta(selected_df['Duration'])
 
-# Get Duration metrics per category
-duration_per_cat = subs_df.groupby(by='Submission Categories')['Duration'].apply(
-        lambda x: x.astype('timedelta64[m]').describe().round(decimals=2)
-)
+# new dataframe without necceary columns for export
+selected_excel_export = selected_df.drop(columns=['Submission Status', 'Submission ID', 'Birthdate', 'Gender', 'Judging Status', 'Submission Date'])
 
-subs_per_cat = dict(Counter(subs_df['Submission Categories']))
-sorted_sub_cat = sorted(subs_per_cat.items(), key=lambda x: x[1])
-total_subs = len(subs_df['Project Title'])
+# Output new spreasheet for Excel
+selected_excel_export.sort_values(by='Submission Categories').to_excel(DATA_FOLDER / 'OCFF-2021_selected-films_01-12-21.xlsx')
+desc_df.to_excel(DATA_FOLDER / 'descriptions.xlsx')
 
-### PLOT ###
+# DEFINE PLOTTING FUNCTIONS
 
-labels = [k for k, v in sorted_sub_cat]
-ratios = [(v / total_subs) for k, v in sorted_sub_cat]
-n_subs = [v for k, v in sorted_sub_cat]
-y_pos = np.arange(len(labels)) # Label locations
+subs_per_cat = dict(Counter(selected_df['Submission Categories']))
+sorted_cat = sorted(subs_per_cat.items(), key=lambda x: x[1])
+total_selected = len(selected_df['Project Title'])
+labels = [k for k, v in sorted_cat]
+number_of_entries = [v for k, v in sorted_cat]
+ratios = [(v / total_selected) for k, v in sorted_cat]
 
+# Plot number of submissions
+# bar
+plt.rcdefaults()
+fig, ax = plt.subplots()
+_ = ax.barh(np.arange(len(labels)), number_of_entries, align='center')
+_ = ax.set_yticks(np.arange(len(labels)))
+_ = ax.set_yticklabels(labels)
+_ = ax.invert_yaxis()
+_ = ax.set_xlabel('Number of Sumbissions')
+_ = ax.set_title('Submissions Per Category')
+_ = plt.tight_layout()
+plt.savefig(DATA_FOLDER / 'entries-per-cat-bar.png')
 
-def make_bar():
-        plt.rcdefaults()
-        fig, ax = plt.subplots()
-        _ = ax.barh(y_pos, n_subs, align='center')
-        _ = ax.set_yticks(y_pos)
-        _ = ax.set_yticklabels(labels)
-        _ = ax.invert_yaxis()
-        _ = ax.set_xlabel('Number of Submissions')
-        _ = ax.set_title('Entries per Submission Category')
-        _ = plt.tight_layout()
-        plt.savefig(DATA_FOLDER / 'EntriesPerCat_BAR.png')
-
-
-def make_pie():
-        fig1, ax = plt.subplots()
-        _ = ax.pie(ratios, labels=labels, autopct='%1.1f%%', shadow=False, normalize=True)
-        _ = ax.set_title('Entries per Submission Category')
-        _ = ax.axis('equal') # make sure pie is circle
-        plt.savefig(DATA_FOLDER / 'EntriesPerCat_PIE.png', bbox_inches='tight')
-
-
-def main():
-        make_bar()
-        make_pie()
-
-
-if __name__ == "__main__":
-        main()
+# pie
+fig1, ax = plt.subplots()
+_ = ax.pie(ratios, labels=labels, autopct='%1.1f%%', shadow=False, normalize=True)
+_ = ax.set_title('Submissions Per Category')
+_ = ax.axis('equal') # make sure pie is circle
+plt.savefig(DATA_FOLDER / 'entries-per-cat-pie.png', bbox_inches='tight')
